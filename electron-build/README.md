@@ -2,13 +2,13 @@
 
 ## Cài đặt chung
 1. Tạo ứng dụng mới của chúng tôi bằng Tạo ứng dụng React.
-> [npx create-react-app my-app
-cd my-app] 
+>npx create-react-app my-app
+>cd my-app
 2. Thêm Electron vào trong React.
 > yarn add electron electron-builder --dev
 3. Thêm một số công cụ sẽ cần.
-> [yarn add wait-on concurrently --dev
-yarn add electron-is-dev]
+>yarn add wait-on concurrently --dev
+>yarn add electron-is-dev
 
 ## Chỉnh sửa code
 1. Tạo một tệp mới public/electron.js, với các nội dung sau:
