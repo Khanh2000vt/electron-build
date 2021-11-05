@@ -171,5 +171,64 @@ module.exports = config => {
 * Các value trong cặp key: value của thẻ author và build có thể thay đổi được.
 5. Chạy lệnh này để đóng gói ứng dụng.
 > yarn electron-pack
-
-### File app sẽ trong thư mục dist.
+- File app sẽ trong thư mục dist.
+# Các lỗi thường gặp và các khắc phục
+1.
+* Lỗi: 
+```
+[1] error Command failed with exit code 1.
+[1] yarn electron:start exited with code 1 --> Sending SIGTERM to other processes.. 
+[0] cross-env BROWSER=none yarn start exited with code 1
+```
+* Sữa lỗi: Chạy lệnh sau: `npm install --save cross-env`.
+2. 
+* Lỗi
+```
+[1] yarn electron:start exited with code 1 --> Sending SIGTERM to other processes.
+[0] cross-env BROWSER=none yarn start exited with code 1 error Command failed with exit code 1.
+```
+* Sữa lỗi:
+```
+1. Ta tạo file .env tại thư mục my-app.
+2. Ta thêm `BROWSER=none` vào trong mục .env.
+3. Chạy lệnh: `yarn install`
+4. Chạy lệnh: `yarn add electron`
+```
+3.
+* Lỗi: 
+```
+Package "electron" is only allowed in "devDependencies". Please remove it from the "dependencies" section in your package.json.
+Package "electron-builder" is only allowed in "devDependencies". Please remove it from the "dependencies" section in your package.json.
+error Command failed with exit code 1.
+```
+* Sửa lỗi:
+> Xóa 2 thuộc tính `"electron"`, `"electron-builder"`, trong mục `"dependencies"`
+4.
+* Lỗi:
+>'react-scripts' is not recognized as an internal or external command, operable program or batch file.
+* Sửa lỗi:
+>npm install react-scripts --save
+5.
+* Lỗi:
+>'electron-builder' is not recognized as an internal or external command, operable program or batch file.
+* Sửa lỗi:
+>npm i electron-builder
+# Các vấn đề khác
+1. Nếu file App.tsx chỉ viết router thì Reactjs và bản build Electronjs vẫn ổn. Nhưng build ra file .exe vì nó lấy mặc định màn hình chính là App.tsx, nên là khi build ra .exe thì app ko hiện gì cả.
+>Cách sửa lỗi: --> Đổi BrowserRouter thành HashRouter.
+2. Các file icon .svg không hiện thị được trong Electron.
+- Thêm code này vào function createWindow của file electron.js:
+```js
+ win.webContents.on('dom-ready', () => {
+            fs.readFile(path.join(__dirname, 'logo192.png'), 'utf8', (err, data) => {
+                if (err) throw err
+                    win.webContents.executeJavaScript(`
+                        var doc = new DOMParser().parseFromString(
+                            '${data}',
+                            'application/xml')
+                        var svgHolder = document.getElementById('svgtest') // is just a <div>
+                    svgHolder.appendChild(svgHolder.ownerDocument.importNode(doc.documentElement, true))
+                `)
+            })
+        })
+  ```
