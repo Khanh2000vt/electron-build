@@ -247,3 +247,48 @@ error Command failed with exit code 1.
         })
   ```
   # Tạo các sự khác biệt trên từng hệ điều hành
+* Sử dụng package: `react-device-detect`
+* Link: https://www.npmjs.com/package/react-device-detect
+* Các thứ liên quan: 
+- https://bestofreactjs.com/repo/duskload-react-device-detect-react-utilites
+- https://www.npmjs.com/package/classnames
+* Đang tìm hiểu cơ bản về thay đổi css khi ở các hệ điều hành khác nhau.
+ - Đầu tiên import package `react-device-detect` và package `classnames`
+ ```
+ yarn add react-device-detect
+ yarn add classnames
+ ```
+ ở code thì làm ví dụ đơn giản như sau:
+ - File App.tsx
+```txs
+import React from 'react';
+import classNames from 'classnames';
+import {isWindows, isMacOs} from 'react-device-detect'
+import './App.css';
+
+function App() {
+  return (
+    <div className={classNames('App', {
+      'isMacOs': isMacOs,
+      'isWindows': isWindows
+    })}>
+      <h1>Test</h1>
+    </div>
+  );
+}
+
+export default App;
+```
+- Ở file App.css
+```
+.App {
+  background: red;
+}
+.App.isMacOs {
+  background:green;
+}
+.App.isWindows {
+  background:yellow;
+}
+```
+Khi ở từng hệ điều hành thì sẽ hiện thị màu khác nhau. Mặc định chung là màu `đỏ`.
