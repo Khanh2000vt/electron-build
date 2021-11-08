@@ -1,4 +1,6 @@
 # Cách build ReactJS sang Electron cho hệ điều hành Window, MacOS, Linux.
+* Sử dụng Node version: `v14.18.1`
+* Đã thử trên Node `v17` đã có lỗi !
 
 ## Cài đặt chung
 1. Tạo ứng dụng mới của chúng tôi bằng Tạo ứng dụng React.
@@ -232,4 +234,3 @@ error Command failed with exit code 1.
             })
         })
   ```
-3. Lỗi 
