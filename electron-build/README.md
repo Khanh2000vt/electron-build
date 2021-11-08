@@ -104,11 +104,15 @@ Bây giờ package.json sẽ như sau:
 ```
 ***
 Có thể chạy ứng dụng ở chế độ phát triển thông qua:
-> yarn electron-dev
+```
+yarn electron-dev
+```
 
 ## Build thành App
 1. Chạy dòng lệnh để cài đặt Bản ghi lại:
-> yarn add @rescripts/cli @rescripts/rescript-env --dev
+```
+yarn add @rescripts/cli @rescripts/rescript-env --dev
+```
 2. Thay đổi các thẻ "scripts" ở package.json từ
 ```json
 "start": "react-scripts start",
@@ -133,9 +137,13 @@ module.exports = config => {
 ```
 ## Thiết lập
 1. Thêm Electron Builder & Typescript:
-> yarn add electron-builder typescript --dev
+```
+yarn add electron-builder typescript --dev
+```
 2. Đặt thuộc tính **"homepage"** vào **package.json**
-> "homepage": "./",
+```
+"homepage": "./",
+```
 - CRA, theo mặc định, xây dựng một index.html sử dụng các đường dẫn tuyệt đối.
 - Điều này sẽ không thành công khi tải nó trong Electron
 - Nên ta thiết lập homepage để thay đổi.
@@ -174,7 +182,9 @@ module.exports = config => {
 ```
 * Các value trong cặp key: value của thẻ author và build có thể thay đổi được.
 5. Chạy lệnh này để đóng gói ứng dụng.
-> yarn electron-pack
+```
+yarn electron-pack
+```
 - File app sẽ trong thư mục dist.
 # Các lỗi thường gặp và các khắc phục
 1.
