@@ -9,7 +9,9 @@ npx create-react-app my-app
 cd my-app
 ```
 2. Thêm Electron vào trong React.
-> yarn add electron electron-builder --dev
+```
+yarn add electron electron-builder --dev
+```
 3. Thêm một số công cụ sẽ cần.
 ```
 yarn add wait-on concurrently --dev
