@@ -156,7 +156,7 @@ yarn add electron-builder typescript --dev
  - `"postinstall": "electron-builder install-app-deps"` sẽ đảm bảo rằng các phụ thuộc gốc luôn khớp với phiên bản electron.
  - `"preelectron-pack": "yarn build"` sẽ xây dựng CRA.
  - `"electron-pack": "build -mwl"` gói ứng dụng cho Mac (m), Windows (w), Linux (l).
- * Mình chỉ chọn 1 trong **electron-pack**
+ * Muốn chỉ build riêng hệ điều hành nào thì chỉ ghi ký hiệu hệ điều hành đó trong `electron-pack`.
  4. Thêm phần sau vào **package.json**:
  ```json
  "author": {
