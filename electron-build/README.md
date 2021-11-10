@@ -59,7 +59,7 @@ app.on('activate', () => {
 ```json
 "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\""
 ```
-Tập lệnh này sẽ chỉ đợi cho đến khi CRA chạy ứng dụng React trên localhost: 3000 trước khi khởi động Electron.
+- Tập lệnh này sẽ chỉ đợi cho đến khi CRA chạy ứng dụng React trên localhost: 3000 trước khi khởi động Electron.
 3. Thêm thẻ "main" sau vào package.json:
 ```json
 "main": "public/electron.js",
@@ -181,6 +181,7 @@ yarn add electron-builder typescript --dev
 }
 ```
 * Các value trong cặp key: value của thẻ author và build có thể thay đổi được.
+* Chạy lệnh `npm prune` để gỡ bỏ các package không dùng đến.
 5. Chạy lệnh này để đóng gói ứng dụng.
 ```
 yarn electron-pack
