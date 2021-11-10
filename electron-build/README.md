@@ -183,6 +183,10 @@ yarn add electron-builder typescript --dev
 * Các value trong cặp key: value của thẻ author và build có thể thay đổi được.
 ## Trước khi chạy lệnh để nén thành file app thì ta nên giảm dung lượng của App.
 * Tham khảo: https://dev.to/xxczaki/how-to-make-your-electron-app-faster-4ifb
+* Tham khảo: https://www.npmjs.com/package/modclean.
+- Ta chạy lệnh `npm i modclean`
+- Chạy `yarn electron-pack` để kiểm tra thử xem có lỗi hay không
+- Sau đó chạy lệnh `yarn` để cài lại nhưng package bị lỗi. 
 5. Chạy lệnh này để đóng gói ứng dụng.
 ```
 yarn electron-pack
