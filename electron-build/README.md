@@ -108,7 +108,7 @@ Có thể chạy ứng dụng ở chế độ phát triển thông qua:
 yarn electron-dev
 ```
 
-## Build thành App
+# Build thành App
 1. Chạy dòng lệnh để cài đặt Bản ghi lại:
 ```
 yarn add @rescripts/cli @rescripts/rescript-env --dev
@@ -181,6 +181,8 @@ yarn add electron-builder typescript --dev
 }
 ```
 * Các value trong cặp key: value của thẻ author và build có thể thay đổi được.
+## Trước khi chạy lệnh để nén thành file app thì ta nên giảm dung lượng của App.
+* Tham khảo: https://dev.to/xxczaki/how-to-make-your-electron-app-faster-4ifb
 * Chạy lệnh `npm prune` để gỡ bỏ các package không dùng đến.
 5. Chạy lệnh này để đóng gói ứng dụng.
 ```
