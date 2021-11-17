@@ -126,7 +126,9 @@ thành như sau:
 "test": "rescripts test",
 ```
 3. Thêm 1 tệp mới ở project có tên **.rescriptsrc.js** với nội dung sau:
-```module.exports = [require.resolve('./.webpack.config.js')]```
+```js
+module.exports = [require.resolve('./.webpack.config.js')]
+```
 4. Thêm 1 tệp mới ở project có tên **.webpack.config.js** với nội dung sau:
 ```js
 // define child rescript
