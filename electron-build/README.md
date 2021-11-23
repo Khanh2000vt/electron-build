@@ -192,6 +192,7 @@ yarn add electron-builder typescript --dev
 ```
 npm dedupe
 npm ddp
+depcheck
 ```
 5. Chạy lệnh này để đóng gói ứng dụng.
 ```
