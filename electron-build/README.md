@@ -183,22 +183,98 @@ yarn add electron-builder typescript --dev
 }
 ```
 * Các value trong cặp key: value của thẻ author và build có thể thay đổi được.
-## Trước khi chạy lệnh để nén thành file app thì ta nên giảm dung lượng của App.
-* Tham khảo: https://dev.to/xxczaki/how-to-make-your-electron-app-faster-4ifb
-* Tham khảo: https://www.npmjs.com/package/modclean.
-- Ta chạy lệnh `yarn add modclean`
-- Sau đó chạy lệnh `yarn modclean` để tỉa package. 
-- Chạy 2 lệnh sau để giảm trùng lặp
-```
-npm dedupe
-npm ddp
-depcheck
-```
 5. Chạy lệnh này để đóng gói ứng dụng.
 ```
 yarn electron-pack
 ```
 - File app sẽ trong thư mục dist.
+
+# Giảm kích thước ứng dụng Electron - ReactJs
+- Di chuyển hết các gói package ở `dependencies` sang `devDependencies` trong `package.json`. Chỉ giữ lại gói `electron-is-dev`.
+- Xoá bỏ `node_modules`
+- Chạy lại lệnh dưới để cập nhật lại node_modules
+```
+yarn
+```
+
+# Tạo icon app Electron.
+* Để tạo icon cho App Electron, ta nên dùng ảnh `.PNG` có kích thước phải là 512x512.
+ - Nên dùng ảnh `.PNG` là gì file ảnh `.PNG` hỗ trợ được cả 3 nền tảng MacOS, Window, Linux.
+ - Kích thước phải là 512x512 là vì MacOS cần tối thiểu là 512x512. Với Window và Linux tối thiểu là 256x256. Vậy nên muốn dùng cho cả đa hệ điều hành thì cần ảnh 512x512.
+ - Nếu sai thì electront tự động dùng icon mặc định.
+* Các bước làm:
+- Đầu tiên ta đưa ảnh vào thư mục `build`. Riêng Linux thì chuyển vào mục `build/icon`.
+- Ở trong thẻ `build` ở `package.json`. Ta thêm thẻ:
+```
+"icon": "build/icon.png" //Trong đó icon.png là file ảnh mình muốn làm icon.
+```
+
+# Thêm Notification vào trong Electron
+* Ta thêm dòng lệnh dưới vào trong file publiec/electron.js
+```js
+app.whenReady().then(createWindow)
+```
+- publiec/electron.js sẽ như sau:
+```js
+const electron = require('electron');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
+
+const path = require('path');
+const isDev = require('electron-is-dev');
+
+let mainWindow;
+
+function createWindow() {
+  mainWindow = new BrowserWindow({width: 900, height: 680});
+  mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);
+  if (isDev) {
+    // Open the DevTools.
+    //BrowserWindow.addDevToolsExtension('<location to your react chrome extension>');
+    mainWindow.webContents.openDevTools();
+  }
+  mainWindow.on('closed', () => mainWindow = null);
+}
+app.whenReady().then(createWindow)
+app.on('ready', createWindow);
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+app.on('activate', () => {
+  if (mainWindow === null) {
+    createWindow();
+  }
+});
+```
+* Khi ta muốn bắn 1 Notification, ta sẽ bắt sự kiện chạy vào hàm như sau:
+```js
+const NOTIFICATION_TITLE = 'Title' // Tiêu đề của Notification
+const NOTIFICATION_BODY = 'Notification from the Renderer process. Click to log to console.' //Nội dung của Notification
+
+new Notification(NOTIFICATION_TITLE, { body: NOTIFICATION_BODY })
+  .onclick = function (event) {
+  // Khi click vào Notification sẽ chạy các lệnh trong này.
+  };
+```
+* Muốn mở app khi click vào Notification:
+```js
+event.preventDefault(); // prevent the browser from focusing the Notification's tab
+    window.open("google.com","_blank");
+```
+lệnh trên được viết vào trong hàm onclick của Notification.
+* Hoặc có cách viết khác như sau: 
+```js
+const newNotification = new Notification(NOTIFICATION_TITLE, { body: NOTIFICATION_BODY });
+
+newNotification .onclick = function (event) {
+    event.preventDefault(); // prevent the browser from focusing the Notification's tab
+    window.open("google.com","_blank");
+};
+```
 # Các lỗi thường gặp và các khắc phục
 1.
 * Lỗi: 
