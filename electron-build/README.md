@@ -205,10 +205,15 @@ yarn
 * Các bước làm:
 - Đầu tiên ta đưa ảnh vào thư mục `build`. Riêng Linux thì chuyển vào mục `build/icon`.
 - Ở trong thẻ `build` ở `package.json`. Ta thêm thẻ:
+```json
+"mac": {
+    "icon": "./public/icons/mac/icon.icns",     <---------- set Mac Icons
+    "category": "public.app-category.utilities"
+  },
+  "win": {
+    "icon": "./public/icons/png/256x256.png" <---------- set Win Icon
+  },
 ```
-"icon": "build/icon.png" //Trong đó icon.png là file ảnh mình muốn làm icon.
-```
-
 # Thêm Notification vào trong Electron
 * Ta thêm dòng lệnh dưới vào trong file publiec/electron.js
 ```js
