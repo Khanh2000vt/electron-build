@@ -1,5 +1,5 @@
 ### ReactJs + Electron = App
-Ấn vào project để đọc
+Ấn vào file `electron-build` để đọc
 # Các nguồn tham khảo
 * https://finbits.io/blog/electron-create-react-app-electron-builder/
 * https://medium.com/@kitze/%EF%B8%8F-from-react-to-an-electron-app-ready-for-production-a0468ecb1da3
