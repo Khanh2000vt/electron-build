@@ -284,24 +284,24 @@ newNotification .onclick = function (event) {
 1.
 * Lỗi: 
 ```
-[1] error Command failed with exit code 1.
-[1] yarn electron:start exited with code 1 --> Sending SIGTERM to other processes.. 
-[0] cross-env BROWSER=none yarn start exited with code 1
+$ concurrently "BROWSER=none yarn start" "wait-on http://localhost:3000 && electron ."
+[0] 'BROWSER' is not recognized as an internal or external command,
+[0] operable program or batch file.
+[0] BROWSER=none yarn start exited with code 1
 ```
-* Sữa lỗi: Chạy lệnh sau: `npm install --save cross-env`.
-2. 
-* Lỗi
+* Sữa lỗi: 
+- Chạy lệnh sau: `yarn add cross-env`
+- Thêm mới một lệnh có thể bất kỳ (ví dụ đặt tên là `dev` chẳng hạn) hoặc sửa lệnh `electron-dev` trong thẻ `scripts` ở file `package.json` thành
+* Thêm mới 1 thẻ:
+```json
+"dev": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\""
 ```
-[1] yarn electron:start exited with code 1 --> Sending SIGTERM to other processes.
-[0] cross-env BROWSER=none yarn start exited with code 1 error Command failed with exit code 1.
+* Hoặc sửa thẻ `electron-dev` cũ thành
+```json
+"electron--dev": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\""
 ```
-* Sữa lỗi:
-```
-1. Ta tạo file .env tại thư mục my-app.
-2. Ta thêm `BROWSER=none` vào trong mục .env.
-3. Chạy lệnh: `yarn install`
-4. Chạy lệnh: `yarn add electron`
-```
+> Sau đó chạy lệnh `yarn dev` hoặc `yarn electron-dev` tương ứng.
+
 3.
 * Lỗi: 
 ```
@@ -315,15 +315,15 @@ error Command failed with exit code 1.
 * Lỗi:
 >'react-scripts' is not recognized as an internal or external command, operable program or batch file.
 * Sửa lỗi:
->npm install react-scripts --save
+Chạy lệnh: ``` yarn add react-scripts --dev ```
 5.
 * Lỗi:
 >'electron-builder' is not recognized as an internal or external command, operable program or batch file.
 * Sửa lỗi:
->npm i electron-builder
+> yarn add electron-builder --dev
 # Các vấn đề khác
 1. Nếu file App.tsx chỉ viết router thì Reactjs và bản build Electronjs vẫn ổn. Nhưng build ra file .exe vì nó lấy mặc định màn hình chính là App.tsx, nên là khi build ra .exe thì app ko hiện gì cả.
->Cách sửa lỗi: --> Đổi BrowserRouter thành HashRouter.
+> Cách sửa lỗi: --> Đổi BrowserRouter thành HashRouter.
 2. Các file icon .svg không hiện thị được trong Electron.
 - Thêm code này vào function createWindow của file electron.js:
 ```js
