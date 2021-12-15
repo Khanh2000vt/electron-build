@@ -235,7 +235,9 @@ new Notification(NOTIFICATION_TITLE, {
   icon: ICON_NOTIFICATION, })
 ```
 - Để tránh bị lỗi ta nên import ICON_NOTIFICATION ở ngoài function components. Ví dụ:
-> import ICON_NOTIFICATION from './assets/test.png'
+```js
+import ICON_NOTIFICATION from './assets/test.png'
+```
 * Hoặc có cách viết khác như sau: 
 ```js
 const newNotification = new Notification(NOTIFICATION_TITLE, { body: NOTIFICATION_BODY });
