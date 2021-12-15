@@ -215,46 +215,6 @@ yarn
   },
 ```
 # Thêm Notification vào trong Electron
-* Ta thêm dòng lệnh dưới vào trong file publiec/electron.js
-```js
-app.whenReady().then(createWindow)
-```
-- publiec/electron.js sẽ như sau:
-```js
-const electron = require('electron');
-const app = electron.app;
-const BrowserWindow = electron.BrowserWindow;
-
-const path = require('path');
-const isDev = require('electron-is-dev');
-
-let mainWindow;
-
-function createWindow() {
-  mainWindow = new BrowserWindow({width: 900, height: 680});
-  mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);
-  if (isDev) {
-    // Open the DevTools.
-    //BrowserWindow.addDevToolsExtension('<location to your react chrome extension>');
-    mainWindow.webContents.openDevTools();
-  }
-  mainWindow.on('closed', () => mainWindow = null);
-}
-app.whenReady().then(createWindow)
-app.on('ready', createWindow);
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
-});
-
-app.on('activate', () => {
-  if (mainWindow === null) {
-    createWindow();
-  }
-});
-```
 * Khi ta muốn bắn 1 Notification, ta sẽ bắt sự kiện chạy vào hàm như sau:
 ```js
 const NOTIFICATION_TITLE = 'Title' // Tiêu đề của Notification
@@ -265,11 +225,17 @@ new Notification(NOTIFICATION_TITLE, { body: NOTIFICATION_BODY })
   // Khi click vào Notification sẽ chạy các lệnh trong này.
   };
 ```
-* Muốn mở app khi click vào Notification:
+* Tạo icon cho Notification
+> Tham khảo: https://www.electronjs.org/docs/latest/api/notification
+- Ta viết vào tham số thứ 2 của Notification.
 ```js
-event.preventDefault(); // prevent the browser from focusing the Notification's tab
-    window.open("google.com","_blank");
+//V Ví dụ
+new Notification(NOTIFICATION_TITLE, {
+  body: NOTIFICATION_BODY,
+  icon: ICON_NOTIFICATION, })
 ```
+> Để tránh bị lỗi ta nên import ICON_NOTIFICATION ở ngoài function components. Ví dụ:
+> import ICON_NOTIFICATION from './assets/test.png'
 lệnh trên được viết vào trong hàm onclick của Notification.
 * Hoặc có cách viết khác như sau: 
 ```js
